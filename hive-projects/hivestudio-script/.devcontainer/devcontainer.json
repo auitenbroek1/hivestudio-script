@@ -1,0 +1,62 @@
+{
+  "name": "Claude Code Ecosystem",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:20-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.vscode-typescript-next",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-json",
+        "ms-python.python",
+        "github.copilot",
+        "github.copilot-chat"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll": true
+        }
+      }
+    }
+  },
+  "forwardPorts": [3000, 5678, 8080, 8000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Application",
+      "onAutoForward": "notify"
+    },
+    "5678": {
+      "label": "Claude Flow",
+      "onAutoForward": "silent"
+    },
+    "8080": {
+      "label": "Development Server",
+      "onAutoForward": "notify"
+    },
+    "8000": {
+      "label": "API Server",
+      "onAutoForward": "silent"
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "bash .devcontainer/startup.sh",
+  "remoteEnv": {
+    "CLAUDE_ENV": "codespace",
+    "NODE_ENV": "development",
+    "FORCE_COLOR": "1",
+    "NPM_CONFIG_COLOR": "always"
+  },
+  "mounts": [
+    "source=claude-cache,target=/home/vscode/.cache,type=volume",
+    "source=claude-config,target=/home/vscode/.claude,type=volume"
+  ],
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "updateContentCommand": "bash .claude/update.sh"
+}
