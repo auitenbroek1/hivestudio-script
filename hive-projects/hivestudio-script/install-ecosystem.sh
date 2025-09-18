@@ -2,6 +2,12 @@
 
 # HiveStudio Multi-Agent Ecosystem Installer
 # One-command setup for the complete development environment
+#
+# CODESPACES COMPATIBLE: Works in GitHub Codespaces, macOS, and Linux
+# - Handles missing Homebrew gracefully
+# - Uses npm as primary Claude CLI installation method
+# - Fallback to curl installation if npm fails
+# - Continues installation even if Claude CLI install fails
 
 set -e
 
@@ -57,13 +63,51 @@ install_claude_cli() {
 
     if ! command -v claude &> /dev/null; then
         log "Installing Claude CLI..."
-        if command -v brew &> /dev/null; then
-            brew install claude-ai/claude/claude
-        else
-            warn "Homebrew not found. Please install Claude CLI manually:"
-            echo "  curl -fsSL https://claude.ai/install.sh | sh"
-            exit 1
+
+        # Detect if running in GitHub Codespaces
+        if [ -n "$CODESPACES" ] || [ -n "$GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN" ]; then
+            log "Detected GitHub Codespaces environment"
         fi
+
+        # Try multiple installation methods
+        if command -v npm &> /dev/null; then
+            log "Attempting npm installation..."
+            if npm install -g @anthropic-ai/claude-code; then
+                log "Claude CLI installed via npm ✓"
+                return 0
+            else
+                warn "npm installation failed, trying alternative method..."
+            fi
+        fi
+
+        if command -v brew &> /dev/null; then
+            log "Attempting Homebrew installation..."
+            if brew install claude-ai/claude/claude; then
+                log "Claude CLI installed via Homebrew ✓"
+                return 0
+            else
+                warn "Homebrew installation failed, trying curl method..."
+            fi
+        fi
+
+        # Fallback to curl installation
+        log "Attempting curl installation..."
+        if curl -fsSL https://claude.ai/install.sh | sh; then
+            log "Claude CLI installed via curl ✓"
+            # Add to PATH for current session
+            export PATH="$PATH:$HOME/.local/bin"
+            return 0
+        else
+            warn "Curl installation failed"
+        fi
+
+        # If all methods fail, provide manual instructions but continue
+        warn "Could not automatically install Claude CLI. Please install manually:"
+        echo "  Option 1: npm install -g @anthropic-ai/claude-code"
+        echo "  Option 2: curl -fsSL https://claude.ai/install.sh | sh"
+        echo "  Option 3: Visit https://claude.ai/download"
+        warn "Continuing with installation... you can install Claude CLI later"
+
     else
         log "Claude CLI already installed ✓"
     fi
@@ -73,19 +117,48 @@ install_claude_cli() {
 install_mcp_servers() {
     log "Installing MCP servers..."
 
+    # Check if Claude CLI is available
+    if ! command -v claude &> /dev/null; then
+        warn "Claude CLI not available - skipping MCP server installation"
+        warn "You can install MCP servers later after setting up Claude CLI"
+        return 0
+    fi
+
     # Claude Flow (required)
     log "Adding Claude Flow MCP server..."
-    claude mcp add claude-flow npx claude-flow@alpha mcp start || warn "Claude Flow MCP server may already be installed"
+    if claude mcp add claude-flow "npx claude-flow@alpha mcp start" 2>/dev/null; then
+        log "Claude Flow MCP server added ✓"
+    else
+        warn "Claude Flow MCP server installation failed or may already be installed"
+        # Try to verify if it's already installed
+        if claude mcp list 2>/dev/null | grep -q "claude-flow"; then
+            log "Claude Flow MCP server already installed ✓"
+        fi
+    fi
 
     # RUV Swarm (optional but recommended)
     log "Adding RUV Swarm MCP server..."
-    claude mcp add ruv-swarm npx ruv-swarm mcp start || warn "RUV Swarm MCP server installation failed - continuing without it"
+    if claude mcp add ruv-swarm "npx ruv-swarm mcp start" 2>/dev/null; then
+        log "RUV Swarm MCP server added ✓"
+    else
+        warn "RUV Swarm MCP server installation failed - continuing without it"
+    fi
 
     # Flow Nexus (optional, cloud features)
     log "Adding Flow Nexus MCP server..."
-    claude mcp add flow-nexus npx flow-nexus@latest mcp start || warn "Flow Nexus MCP server installation failed - continuing without it"
+    if claude mcp add flow-nexus "npx flow-nexus@latest mcp start" 2>/dev/null; then
+        log "Flow Nexus MCP server added ✓"
+    else
+        warn "Flow Nexus MCP server installation failed - continuing without it"
+    fi
 
-    log "MCP servers installation completed ✓"
+    # Show installed MCP servers
+    log "Checking installed MCP servers..."
+    if claude mcp list 2>/dev/null; then
+        log "MCP servers installation completed ✓"
+    else
+        warn "Could not verify MCP server installation"
+    fi
 }
 
 # Set up project structure
