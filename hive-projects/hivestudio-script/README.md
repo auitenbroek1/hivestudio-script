@@ -1,10 +1,10 @@
-# HiveStudio Script - Multi-Agent Development Ecosystem
+# HiveStudio Script - Claude Code Ecosystem Setup
 
 [![GitHub Actions](https://github.com/auitenbroek1/hivestudio-script/workflows/validate/badge.svg)](https://github.com/auitenbroek1/hivestudio-script/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
 
-A comprehensive multi-agent development ecosystem that orchestrates AI agents using the SPARC methodology (Specification, Pseudocode, Architecture, Refinement, Completion) with Claude-Flow coordination for systematic Test-Driven Development.
+A comprehensive setup and automation framework for Claude Code that integrates multiple AI development tools including Claude Flow orchestration, CCPM project management, Playwright MCP browser automation, and GitHub CLI - optimized for GitHub Codespaces and local development environments.
 
 ## 🚀 Quick Start
 
@@ -323,11 +323,38 @@ npx claude-flow bottleneck analyze
 npx claude-flow topology optimize
 ```
 
+### Quick Diagnostics
+
+```bash
+# Run comprehensive system check
+./quickstart.sh demo
+
+# Validate MCP servers
+claude mcp list
+
+# Test Claude Flow connection
+npx claude-flow@alpha --version
+
+# Check agent availability
+ls .claude/agents/
+```
+
+### Installation Issues
+
+| Issue | Solution |
+|-------|----------|
+| "Command not found: claude" | Run `./install-ecosystem.sh` or install Claude CLI manually |
+| "Permission denied" | Make scripts executable: `chmod +x *.sh` |
+| "Node.js version too old" | Update to Node.js 18+: `nvm install 18` |
+| "MCP server timeout" | Check internet connection and firewall settings |
+| "Agent spawn failed" | Verify `.claude/agents/` directory exists and has content |
+
 ### Getting Help
-- **Documentation**: Check [docs/QUICK-REFERENCE.md](docs/QUICK-REFERENCE.md)
-- **Issues**: [GitHub Issues](https://github.com/auitenbroek1/hivestudio-script/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/auitenbroek1/hivestudio-script/discussions)
-- **Claude Flow**: [Official Documentation](https://github.com/ruvnet/claude-flow)
+
+- **📖 Documentation**: [docs/SETUP.md](docs/SETUP.md) for detailed setup
+- **🐛 Report Issues**: [GitHub Issues](https://github.com/auitenbroek1/hivestudio-script/issues)
+- **💬 Community**: [GitHub Discussions](https://github.com/auitenbroek1/hivestudio-script/discussions)
+- **🔧 Claude Flow**: [Official Documentation](https://github.com/ruvnet/claude-flow)
 
 ## 📄 License
 
