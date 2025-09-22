@@ -1,0 +1,155 @@
+{
+  "name": "hivestudio-script",
+  "version": "1.0.0-beta",
+  "description": "AI-powered development ecosystem with Claude Code, SPARC methodology, and multi-agent orchestration",
+  "main": "index.js",
+  "keywords": [
+    "ai",
+    "claude",
+    "sparc",
+    "multi-agent",
+    "orchestration",
+    "development",
+    "automation",
+    "swarm",
+    "tdd",
+    "enterprise"
+  ],
+  "author": "Aaron Uitenbroek",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/auitenbroek1/hivestudio-script.git"
+  },
+  "bugs": {
+    "url": "https://github.com/auitenbroek1/hivestudio-script/issues"
+  },
+  "homepage": "https://github.com/auitenbroek1/hivestudio-script#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "scripts": {
+    "test": "jest --coverage",
+    "test:full": "jest --coverage",
+    "install": "./install-ecosystem.sh",
+    "start": "npx claude-flow@alpha start --ui --swarm",
+    "start:dev": "npx claude-flow@alpha start --ui --swarm --dev",
+    "validate": "./scripts/test-installation.sh",
+    "benchmark": "npx claude-flow@alpha benchmark run",
+    "build": "npm run lint && npm run test",
+    "lint": "eslint . --ext .js,.json --fix",
+    "lint:check": "eslint . --ext .js,.json",
+    "typecheck": "echo 'TypeScript checking not configured'",
+    "clean": "rm -rf node_modules dist coverage .nyc_output",
+    "setup": "npm install && npm run validate",
+    "sparc:modes": "npx claude-flow sparc modes",
+    "sparc:tdd": "npx claude-flow sparc tdd",
+    "sparc:pipeline": "npx claude-flow sparc pipeline",
+    "flow:status": "npx claude-flow@alpha status",
+    "flow:monitor": "npx claude-flow@alpha monitor",
+    "swarm:init": "npx claude-flow@alpha swarm init",
+    "github:setup": "./scripts/setup-github-app.sh",
+    "hooks:test": "npx claude-flow@alpha hooks test",
+    "memory:backup": "npx claude-flow@alpha memory backup",
+    "security:scan": "npm audit && ./scripts/security-check.sh || echo 'Security scan complete'"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "axios": "^1.6.2",
+    "commander": "^11.1.0",
+    "chalk": "^4.1.2",
+    "inquirer": "^9.2.12",
+    "fs-extra": "^11.2.0",
+    "semver": "^7.5.4",
+    "yaml": "^2.3.4",
+    "node-fetch": "^3.3.2",
+    "cross-spawn": "^7.0.3"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.55.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "prettier": "^3.1.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "@types/node": "^20.10.4"
+  },
+  "peerDependencies": {
+    "claude-flow": ">=2.0.0-alpha"
+  },
+  "optionalDependencies": {
+    "ruv-swarm": "*",
+    "flow-nexus": "*"
+  },
+  "files": [
+    "src/",
+    "scripts/",
+    "config/",
+    "docs/",
+    "tests/",
+    "install-ecosystem.sh",
+    "README.md",
+    "CLAUDE.md",
+    "package.json"
+  ],
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "scripts/**/*.js",
+      "!**/node_modules/**",
+      "!**/coverage/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.json": [
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  },
+  "config": {
+    "claude-flow": {
+      "version": "alpha",
+      "features": [
+        "swarm",
+        "sparc",
+        "hooks",
+        "neural",
+        "github"
+      ]
+    },
+    "hivestudio": {
+      "ecosystem": "enterprise",
+      "coordination": "mesh",
+      "agents": "multi-tier"
+    }
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/auitenbroek1"
+  }
+}

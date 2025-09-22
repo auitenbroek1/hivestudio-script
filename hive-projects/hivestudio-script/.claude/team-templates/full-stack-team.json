@@ -1,0 +1,44 @@
+{
+  "name": "Full-Stack Development Team",
+  "description": "Complete team for full-stack web application development",
+  "topology": "hierarchical",
+  "maxAgents": 8,
+  "agents": [
+    {
+      "type": "architect",
+      "role": "team-lead",
+      "responsibilities": ["System design", "Architecture decisions", "Team coordination"]
+    },
+    {
+      "type": "backend-dev",
+      "role": "backend-specialist",
+      "responsibilities": ["API development", "Database design", "Server logic"]
+    },
+    {
+      "type": "coder",
+      "role": "frontend-specialist",
+      "responsibilities": ["UI components", "Frontend logic", "User experience"]
+    },
+    {
+      "type": "tester",
+      "role": "qa-specialist",
+      "responsibilities": ["Test automation", "Quality assurance", "Bug detection"]
+    },
+    {
+      "type": "reviewer",
+      "role": "code-reviewer",
+      "responsibilities": ["Code quality", "Security review", "Best practices"]
+    },
+    {
+      "type": "cicd-engineer",
+      "role": "devops-specialist",
+      "responsibilities": ["Deployment", "CI/CD", "Infrastructure"]
+    }
+  ],
+  "workflows": [
+    "SPARC methodology",
+    "Test-driven development",
+    "Code review process",
+    "Continuous integration"
+  ]
+}

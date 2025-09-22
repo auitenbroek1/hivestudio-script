@@ -1,0 +1,39 @@
+{
+  "name": "API Development Team",
+  "description": "Specialized team for REST API and microservices development",
+  "topology": "mesh",
+  "maxAgents": 6,
+  "agents": [
+    {
+      "type": "api-docs",
+      "role": "api-architect",
+      "responsibilities": ["API design", "Documentation", "Standards"]
+    },
+    {
+      "type": "backend-dev",
+      "role": "implementation-lead",
+      "responsibilities": ["Endpoint implementation", "Business logic", "Data access"]
+    },
+    {
+      "type": "tester",
+      "role": "api-tester",
+      "responsibilities": ["API testing", "Contract testing", "Load testing"]
+    },
+    {
+      "type": "reviewer",
+      "role": "security-reviewer",
+      "responsibilities": ["Security audit", "Performance review", "Code quality"]
+    },
+    {
+      "type": "cicd-engineer",
+      "role": "deployment-specialist",
+      "responsibilities": ["API deployment", "Monitoring", "Scaling"]
+    }
+  ],
+  "workflows": [
+    "API-first development",
+    "Contract testing",
+    "Security review",
+    "Performance optimization"
+  ]
+}

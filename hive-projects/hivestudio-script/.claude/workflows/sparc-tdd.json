@@ -1,0 +1,56 @@
+{
+  "name": "SPARC TDD Workflow",
+  "description": "Complete SPARC methodology with Test-Driven Development",
+  "phases": [
+    {
+      "name": "Specification",
+      "agents": ["researcher", "architect"],
+      "tasks": [
+        "Analyze requirements",
+        "Define acceptance criteria",
+        "Create user stories",
+        "Document constraints"
+      ]
+    },
+    {
+      "name": "Pseudocode",
+      "agents": ["architect", "coder"],
+      "tasks": [
+        "Design algorithms",
+        "Define interfaces",
+        "Plan data structures",
+        "Create flow diagrams"
+      ]
+    },
+    {
+      "name": "Architecture",
+      "agents": ["architect", "reviewer"],
+      "tasks": [
+        "System design",
+        "Component architecture",
+        "Technology selection",
+        "Scalability planning"
+      ]
+    },
+    {
+      "name": "Refinement",
+      "agents": ["coder", "tester", "reviewer"],
+      "tasks": [
+        "Write failing tests",
+        "Implement minimum code",
+        "Refactor for quality",
+        "Review and iterate"
+      ]
+    },
+    {
+      "name": "Completion",
+      "agents": ["tester", "reviewer", "cicd-engineer"],
+      "tasks": [
+        "Integration testing",
+        "Performance testing",
+        "Security review",
+        "Deployment preparation"
+      ]
+    }
+  ]
+}

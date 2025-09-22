@@ -1,0 +1,44 @@
+{
+  "name": "Mobile Development Team",
+  "description": "Cross-platform mobile application development team",
+  "topology": "ring",
+  "maxAgents": 6,
+  "agents": [
+    {
+      "type": "mobile-dev",
+      "role": "mobile-lead",
+      "responsibilities": ["App architecture", "Platform integration", "Performance"]
+    },
+    {
+      "type": "coder",
+      "role": "ui-developer",
+      "responsibilities": ["UI components", "User experience", "Platform-specific features"]
+    },
+    {
+      "type": "backend-dev",
+      "role": "api-developer",
+      "responsibilities": ["Mobile API", "Push notifications", "Data sync"]
+    },
+    {
+      "type": "tester",
+      "role": "mobile-tester",
+      "responsibilities": ["Device testing", "Platform testing", "User testing"]
+    },
+    {
+      "type": "reviewer",
+      "role": "mobile-reviewer",
+      "responsibilities": ["Code review", "Store compliance", "Security review"]
+    },
+    {
+      "type": "cicd-engineer",
+      "role": "mobile-devops",
+      "responsibilities": ["Build automation", "App deployment", "Store publication"]
+    }
+  ],
+  "workflows": [
+    "Cross-platform development",
+    "Device testing",
+    "Store deployment",
+    "Performance optimization"
+  ]
+}

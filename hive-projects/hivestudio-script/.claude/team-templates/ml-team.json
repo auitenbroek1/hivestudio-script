@@ -1,0 +1,44 @@
+{
+  "name": "Machine Learning Team",
+  "description": "Specialized team for ML model development and deployment",
+  "topology": "star",
+  "maxAgents": 7,
+  "agents": [
+    {
+      "type": "ml-developer",
+      "role": "ml-lead",
+      "responsibilities": ["Model design", "Training", "Evaluation"]
+    },
+    {
+      "type": "researcher",
+      "role": "data-scientist",
+      "responsibilities": ["Data analysis", "Feature engineering", "Research"]
+    },
+    {
+      "type": "coder",
+      "role": "ml-engineer",
+      "responsibilities": ["Model implementation", "Pipeline development", "Integration"]
+    },
+    {
+      "type": "tester",
+      "role": "ml-tester",
+      "responsibilities": ["Model validation", "A/B testing", "Performance testing"]
+    },
+    {
+      "type": "cicd-engineer",
+      "role": "mlops-engineer",
+      "responsibilities": ["Model deployment", "Monitoring", "MLOps pipeline"]
+    },
+    {
+      "type": "reviewer",
+      "role": "model-reviewer",
+      "responsibilities": ["Model review", "Ethics review", "Performance audit"]
+    }
+  ],
+  "workflows": [
+    "ML experimentation",
+    "Model validation",
+    "MLOps deployment",
+    "Performance monitoring"
+  ]
+}

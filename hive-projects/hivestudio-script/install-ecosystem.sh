@@ -1,18 +1,23 @@
 #!/bin/bash
 
-# HiveStudio Multi-Agent Ecosystem Installer
-# One-command setup for the complete development environment
+# HiveStudio Multi-Agent Ecosystem Installer - Two-Stage Architecture
+# Intelligent installation leveraging Claude Code's problem-solving capabilities
 #
-# CODESPACES COMPATIBLE: Works in GitHub Codespaces, macOS, and Linux
-# - Handles missing Homebrew gracefully
-# - Uses npm as primary Claude CLI installation method
-# - Fallback to curl installation if npm fails
-# - Continues installation even if Claude CLI install fails
+# STAGE 1 (Outside Claude): System preparation, Claude Code installation, authentication
+# STAGE 2 (Inside Claude): Complex installation using Claude Code's intelligence
 
 set -e
 
 echo "🚀 HiveStudio Multi-Agent Ecosystem Installer"
 echo "============================================="
+echo ""
+echo "🧠 Two-Stage Intelligent Installation:"
+echo "   Stage 1: System preparation (runs outside Claude Code)"
+echo "   Stage 2: Intelligent installation (runs inside Claude Code)"
+echo ""
+echo "This approach maximizes success by using Claude Code's intelligence"
+echo "for complex installation tasks and error resolution."
+echo ""
 
 # Color codes for output
 RED='\033[0;31m'
@@ -32,7 +37,6 @@ warn() {
 
 error() {
     echo -e "${RED}[ERROR] $1${NC}"
-    exit 1
 }
 
 # Check prerequisites
@@ -830,30 +834,88 @@ EOF
     log "Quick reference created ✓"
 }
 
-# Main installation
+# Two-stage installation orchestrator
 main() {
-    log "Starting HiveStudio Multi-Agent Ecosystem installation..."
-
-    check_prerequisites
-    install_claude_cli
-    install_mcp_servers
-    setup_project_structure
-    setup_package_json
-    create_team_templates
-    create_workflow_templates
-    create_utility_scripts
-    create_examples
-    create_quick_reference
-
-    log "🎉 Installation completed successfully!"
+    log "🚀 Starting HiveStudio Two-Stage Installation..."
     echo ""
-    echo -e "${BLUE}Next steps:${NC}"
-    echo "1. Run: ${GREEN}./quickstart.sh${NC} to test the ecosystem"
-    echo "2. Read: ${GREEN}docs/QUICK-REFERENCE.md${NC} for usage guide"
-    echo "3. Try: ${GREEN}./scripts/spawn-team.sh full-stack-team 'My Project'${NC}"
+
+    # Stage 1: System preparation (runs outside Claude Code)
+    log "🔧 Stage 1: System Preparation"
+    echo "   • Validating system prerequisites"
+    echo "   • Installing Claude Code application"
+    echo "   • Launching and authenticating Claude Code"
+    echo "   • Preparing environment for Stage 2"
     echo ""
-    echo -e "${YELLOW}Happy coding with your AI agent team! 🚀${NC}"
+
+    # Execute Stage 1
+    if [ -f "scripts/stage1-system-preparation.sh" ]; then
+        if ! bash scripts/stage1-system-preparation.sh; then
+            error "❌ Stage 1 failed. Please check the errors above and try again."
+        fi
+    else
+        error "❌ Stage 1 script not found: scripts/stage1-system-preparation.sh"
+    fi
+
+    echo ""
+    log "✅ Stage 1 completed successfully!"
+    echo ""
+    echo -e "${BLUE}📋 Stage 1 Complete - Ready for Stage 2${NC}"
+    echo ""
+    echo "Claude Code is now running and authenticated."
+    echo ""
+    echo -e "${GREEN}🧠 NEXT: Run Stage 2 inside Claude Code${NC}"
+    echo ""
+    echo "Stage 2 leverages Claude Code's intelligence for:"
+    echo "• ✨ Intelligent error analysis and recovery"
+    echo "• 🔧 Smart MCP server installation"
+    echo "• ⚙️ Adaptive configuration management"
+    echo "• 🎯 Contextual problem-solving"
+    echo "• 📊 Comprehensive validation with insights"
+    echo ""
+    echo -e "${YELLOW}👉 Inside Claude Code, run:${NC}"
+    echo ""
+    echo "      ./scripts/stage2-hivestudio-install.sh"
+    echo ""
+    echo "or simply:"
+    echo ""
+    echo "      hivestudio-install"
+    echo ""
+    echo "Claude Code will handle complex installation tasks intelligently!"
+    echo ""
 }
 
-# Run installation
+# Create hivestudio-install alias for Stage 2
+create_stage2_alias() {
+    # Create a simple alias command for Stage 2
+    cat > hivestudio-install << 'EOF'
+#!/bin/bash
+# HiveStudio Stage 2 Installation Command
+# Run this inside Claude Code for intelligent installation
+
+echo "🧠 Starting HiveStudio Stage 2 with Claude Code Intelligence..."
+exec ./scripts/stage2-hivestudio-install.sh "$@"
+EOF
+
+    chmod +x hivestudio-install
+    log "✅ Created 'hivestudio-install' command for Stage 2"
+}
+
+# Prepare for two-stage installation
+prepare_two_stage_setup() {
+    # Make sure Stage 1 script is executable
+    if [ -f "scripts/stage1-system-preparation.sh" ]; then
+        chmod +x scripts/stage1-system-preparation.sh
+    fi
+
+    # Make sure Stage 2 script is executable
+    if [ -f "scripts/stage2-hivestudio-install.sh" ]; then
+        chmod +x scripts/stage2-hivestudio-install.sh
+    fi
+
+    # Create Stage 2 alias
+    create_stage2_alias
+}
+
+# Run two-stage installation
+prepare_two_stage_setup
 main "$@"

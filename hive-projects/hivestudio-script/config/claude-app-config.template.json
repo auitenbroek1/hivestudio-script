@@ -1,0 +1,130 @@
+{
+  "github_app": {
+    "name": "Claude GitHub App Integration",
+    "description": "Automated code review and analysis using Claude AI",
+    "version": "1.0.0",
+    "repository": "auitenbroek1/hivestudio-script"
+  },
+  "authentication": {
+    "methods": [
+      {
+        "name": "oauth_token",
+        "description": "OAuth token generated via 'claude setup-token'",
+        "secret_name": "CLAUDE_CODE_OAUTH_TOKEN",
+        "recommended": true,
+        "setup_command": "claude setup-token"
+      },
+      {
+        "name": "api_key",
+        "description": "Anthropic API key from console.anthropic.com",
+        "secret_name": "ANTHROPIC_API_KEY",
+        "recommended": false,
+        "setup_url": "https://console.anthropic.com/"
+      }
+    ]
+  },
+  "workflow": {
+    "file": ".github/workflows/claude.yml",
+    "triggers": [
+      "pull_request.opened",
+      "pull_request.synchronize",
+      "pull_request.reopened",
+      "workflow_dispatch"
+    ],
+    "permissions": {
+      "contents": "read",
+      "pull-requests": "write",
+      "issues": "write"
+    }
+  },
+  "review_settings": {
+    "analysis_criteria": [
+      "Code quality and best practices",
+      "Security vulnerabilities",
+      "Performance considerations",
+      "Maintainability and readability",
+      "Adherence to SPARC methodology",
+      "Compatibility with HiveStudio ecosystem"
+    ],
+    "file_types": [
+      "*.js",
+      "*.ts",
+      "*.py",
+      "*.sh",
+      "*.md",
+      "*.json",
+      "*.yml",
+      "*.yaml"
+    ],
+    "max_files_per_review": 20,
+    "timeout_minutes": 10
+  },
+  "documentation": {
+    "setup_guide": "docs/github-app-setup.md",
+    "oauth_guide": "docs/oauth-token-guide.md",
+    "testing_guide": "docs/testing-guide.md"
+  },
+  "support": {
+    "repository_issues": "https://github.com/auitenbroek1/hivestudio-script/issues",
+    "claude_docs": "https://docs.anthropic.com/",
+    "github_actions_docs": "https://docs.github.com/en/actions"
+  },
+  "installation_checklist": [
+    {
+      "step": 1,
+      "task": "Install Claude GitHub App",
+      "url": "https://github.com/apps/claude",
+      "description": "Install the Claude app and grant access to the repository"
+    },
+    {
+      "step": 2,
+      "task": "Generate authentication credentials",
+      "options": [
+        "Run 'claude setup-token' for OAuth token (recommended)",
+        "Get API key from https://console.anthropic.com/"
+      ]
+    },
+    {
+      "step": 3,
+      "task": "Add repository secrets",
+      "location": "Repository → Settings → Secrets and variables → Actions",
+      "secrets": [
+        "CLAUDE_CODE_OAUTH_TOKEN (if using OAuth)",
+        "ANTHROPIC_API_KEY (if using API key)"
+      ]
+    },
+    {
+      "step": 4,
+      "task": "Test the integration",
+      "description": "Create a test pull request to verify the workflow runs"
+    }
+  ],
+  "troubleshooting": {
+    "common_issues": [
+      {
+        "issue": "Workflow not triggering",
+        "solutions": [
+          "Ensure .github/workflows/claude.yml exists in main branch",
+          "Check repository has Actions enabled",
+          "Verify workflow YAML syntax"
+        ]
+      },
+      {
+        "issue": "Authentication failed",
+        "solutions": [
+          "Verify secret names match exactly",
+          "Check token/key format",
+          "Regenerate credentials if expired"
+        ]
+      },
+      {
+        "issue": "No review comment posted",
+        "solutions": [
+          "Check GitHub token permissions",
+          "Verify API rate limits not exceeded",
+          "Test comment posting manually"
+        ]
+      }
+    ]
+  }
+}
